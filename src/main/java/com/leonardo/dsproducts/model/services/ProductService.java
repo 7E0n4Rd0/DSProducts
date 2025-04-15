@@ -7,6 +7,7 @@ import com.leonardo.dsproducts.model.services.exceptions.ResourceNotFoundExcepti
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,5 +23,14 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
+    public List<ProductDTO> findByDepartment(String department){
+        List<Product> list;
+        if ("".equals(department)){
+            list = repository.findAll();
+        }else{
+            list = repository.findByDepartment(department);
+        }
+        return list.stream().map(ProductDTO::new).toList();
+    }
 
 }

@@ -35,13 +35,19 @@ public class DepartmentService {
         return new DepartmentDTO(entity);
     }
 
-
     public DepartmentDTO update(UUID id, DepartmentDTO dto){
         Department entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("ID not found"));
         entity.setName(dto.getName());
         entity = repository.save(entity);
         return new DepartmentDTO(entity);
+    }
+
+    public void deleteById(UUID id){
+        if(!repository.existsById(id)){
+            throw new ResourceNotFoundException("ID not found");
+        }
+        repository.deleteById(id);
     }
 
     private void copyDtoToEntity(DepartmentDTO dto, Department entity){

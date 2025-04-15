@@ -40,4 +40,10 @@ public class DepartmentController {
     public ResponseEntity<DepartmentDTO> update(@PathVariable UUID id, @RequestBody DepartmentDTO dto){
         return ResponseEntity.ok(service.update(id, dto));
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id){
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
